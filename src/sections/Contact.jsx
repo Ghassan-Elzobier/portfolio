@@ -32,8 +32,8 @@ const Contact = () => {
     try {
       console.log("Form submitted:", formData);
       await emailjs.send(
-        "service_p34543s",
-        "template_gqyfo8o",
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
         {
           from_name: formData.name,
           to_name: "Ghassan",
@@ -41,7 +41,7 @@ const Contact = () => {
           to_email: "ghassanelzobier@gmail.com",
           message: formData.message,
         },
-        "0ZCOx0Jf42n-MQ7w3"
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
       setIsLoading(false);
       setFormData({ name: "", email: "", message: "" });
