@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { motion } from "motion/react";
 
 const ProjectDetails = ({
@@ -32,7 +33,7 @@ const ProjectDetails = ({
           <h5 className="mb-2 text-2xl font-bold text-white">{title}</h5>
           <p className="mb-3 font-normal text-neutral-400">{description}</p>
           {subDescription.map((subDesc, index) => (
-            <p className="mb-3 font-normal text-neutral-400">{subDesc}</p>
+            <p key={index} className="mb-3 font-normal text-neutral-400">{subDesc}</p>
           ))}
           <div className="flex items-center justify-between mt-4">
             <div className="flex gap-3">
@@ -45,14 +46,14 @@ const ProjectDetails = ({
                 />
               ))}
             </div>
-            <a
-              className="inline-flex items-center gap-1 font-medium 
+            <Link
+              className="inline-flex items-center gap-1 font-medium
               hover-animation cursor-pointer"
-              href={href}
+              href={href || "#"}
             >
               View Project
               <img src="assets/arrow-up.svg" className="size-4" />
-            </a>
+            </Link>
           </div>
         </div>
       </motion.div>

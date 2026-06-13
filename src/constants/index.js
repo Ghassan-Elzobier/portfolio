@@ -1,38 +1,28 @@
 export const myProjects = [
   {
     id: 1,
-    title: "E-commerce Platform",
+    title: "Boid Simulator",
     description:
-      "Facilitates purchases from international websites like Amazon and eBay, allowing customers to shop from these sites and have products delivered domestically.",
+      "A real-time flocking simulation built with WebGPU, using compute shaders to model the emergent behaviour of thousands of agents following Craig Reynolds' three classic rules: separation, alignment, and cohesion.",
     subDescription: [
-      "Built a scalable application with ASP.NET Core MVC, integrating global platforms like Amazon for domestic delivery.",
-      "Implemented secure authentication and database management using ASP.NET Core Identity and Entity Framework Core.",
-      "Designed a responsive frontend with Tailwind CSS, enhancing user experience.",
-      "Added payment systems, localization, and product filtering for functionality improvements.",
+      "Implemented Reynolds' three-rule flocking model (separation, alignment, cohesion) running fully in parallel on the GPU via WGSL compute shaders.",
+      "Used a ping-pong buffer pattern to update agent positions and velocities each frame without CPU-GPU round trips.",
+      "Rendered thousands of agents efficiently using instanced draw calls in the WebGPU render pipeline.",
+      "Built as a self-directed project to explore GPU compute and parallel simulation, motivated by an interest in graphics programming and the maths underlying real-time simulation.",
     ],
-    href: "",
+    href: "/boid-simulator",
     logo: "",
-    image: "/assets/projects/accessories.jpg",
+    image: "/assets/projects/boid-simulator.jpg",
     tags: [
       {
         id: 1,
-        name: "C#",
-        path: "/assets/logos/csharp.svg",
+        name: "WebGPU",
+        path: "/assets/logos/webgpu.svg",
       },
       {
         id: 2,
-        name: ".Net",
-        path: "/assets/logos/dotnet.svg",
-      },
-      {
-        id: 3,
-        name: "Ef Core",
-        path: "/assets/logos/efcore.png",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
+        name: "TypeScript",
+        path: "/assets/logos/typescript.svg",
       },
     ],
   },
