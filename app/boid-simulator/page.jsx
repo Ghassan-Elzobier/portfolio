@@ -1,6 +1,6 @@
-'use client';
-import { useRef, useEffect } from 'react';
-import Link from 'next/link';
+"use client";
+import { useRef, useEffect } from "react";
+import Link from "next/link";
 
 // Add sections as you build the simulation
 // Boids (WebGPU) — learning journey sections
@@ -16,21 +16,21 @@ import Link from 'next/link';
 
 const sections = [
   {
-    id: 'overview',
-    type: 'description',
-    title: 'Boids in WebGPU: reading before writing',
+    id: "overview",
+    type: "description",
+    title: "Boids in WebGPU: reading before writing",
     content: [
       "This was my way into graphics programming. Instead of starting from a blank file, I worked from an existing boids (flocking) reference project in raw WebGPU and WGSL and spent my time pulling it apart.",
       "I'd just been through webgpufundamentals.org, so I had the building blocks: adapters and devices, uniform and storage buffers, bind groups, pipelines, compute shaders, instanced rendering. The reference used all of them at once, which is why I picked it. It was a chance to see how they fit together in something real.",
-      "The honest framing: I didn't invent this. I read it, typed it out with my own comments, broke it in small ways to see what each part did, and put it back together. The comments in the code below are mine.",
+      "My approach to this process was to type out the code line by line with my own comments, nudged things to see what broke, and worked out why. The comments in the code below are my own.",
     ],
   },
 
   {
-    id: 'setup-code',
-    type: 'code',
-    filename: 'boids.js',
-    language: 'JavaScript',
+    id: "setup-code",
+    type: "code",
+    filename: "boids.js",
+    language: "JavaScript",
     code: `const adapter = await navigator.gpu?.requestAdapter();
 const device = await adapter?.requestDevice();
 if (!device) {
@@ -48,9 +48,9 @@ context.configure({
 });`,
   },
   {
-    id: 'setup-desc',
-    type: 'description',
-    title: 'Getting WebGPU running',
+    id: "setup-desc",
+    type: "description",
+    title: "Getting WebGPU running",
     content: [
       "Standard WebGPU setup from the fundamentals. You request an adapter (the physical GPU) and then a device (your handle for sending it work).",
       "configure() connects the canvas to the device and uses the browser's preferred texture format. I kept the reference's choices here since they're the sensible defaults.",
@@ -58,10 +58,10 @@ context.configure({
   },
 
   {
-    id: 'boids-code',
-    type: 'code',
-    filename: 'boids.js',
-    language: 'JavaScript',
+    id: "boids-code",
+    type: "code",
+    filename: "boids.js",
+    language: "JavaScript",
     code: `const BOID_COUNT = 700; // Number of boids on the screen
 const BASE_SIZE = 0.028; // Size of each boid
 
@@ -74,16 +74,16 @@ function makeInitialBoids() {
 
     const a = Math.random() * Math.PI * 2; // random angle in radians
     const s = 0.25 + Math.random() * 0.35; // random speed between 0.25 and 0.6
-    data[idx++] = Math.cos(a) * s; // Velovity in x direction
-    data[idx++] = Math.sin(a) * s; // Velovity in y direction
+    data[idx++] = Math.cos(a) * s; // Velocity in x direction
+    data[idx++] = Math.sin(a) * s; // Velocity in y direction
   }
   return data;
 }`,
   },
   {
-    id: 'boids-desc',
-    type: 'description',
-    title: 'A boid is just four numbers',
+    id: "boids-desc",
+    type: "description",
+    title: "A boid is just four numbers",
     content: [
       "Each boid is four floats: x, y, velocity x, velocity y, with all 700 packed into one flat Float32Array. This is the storage buffer pattern from the fundamentals: the GPU wants a contiguous block of numbers, and the shader reads it back as an array of structs.",
       "Positions start near the middle of the screen, and each boid gets a random heading and speed so they don't all set off the same way.",
@@ -91,10 +91,10 @@ function makeInitialBoids() {
   },
 
   {
-    id: 'params-code',
-    type: 'code',
-    filename: 'boids.js',
-    language: 'JavaScript',
+    id: "params-code",
+    type: "code",
+    filename: "boids.js",
+    language: "JavaScript",
     code: `function writeParams(dt) {
   const buf = new ArrayBuffer(64); // A CPU buffer to store all params before transfer to GPU
   const f32 = new Float32Array(buf); // A view into the buffer array to add floats
@@ -127,9 +127,9 @@ function writeView() {
 }`,
   },
   {
-    id: 'params-desc',
-    type: 'description',
-    title: 'Uniforms and the padding that matters',
+    id: "params-desc",
+    type: "description",
+    title: "Uniforms and the padding that matters",
     content: [
       "The params buffer holds the tuning knobs (neighbour distances, max speed, the weight of each rule). They're the same for every boid, so they go in a uniform buffer. The view buffer just carries aspect ratio and boid size.",
       "The f32[7] = 0.0 padding is the detail worth flagging. The uniforms chapter in the fundamentals covers struct alignment, and this is it in practice: the JS layout has to match the shader struct field for field, padding included, or values land in the wrong place.",
@@ -137,10 +137,10 @@ function writeView() {
   },
 
   {
-    id: 'pipeline-code',
-    type: 'code',
-    filename: 'boids.js',
-    language: 'JavaScript',
+    id: "pipeline-code",
+    type: "code",
+    filename: "boids.js",
+    language: "JavaScript",
     code: `const computePipeline = device.createComputePipeline({
   layout: "auto",
   compute: {
@@ -180,9 +180,9 @@ const renderBindGroup = device.createBindGroup({
 })`,
   },
   {
-    id: 'pipeline-desc',
-    type: 'description',
-    title: 'Two pipelines sharing one buffer',
+    id: "pipeline-desc",
+    type: "description",
+    title: "Two pipelines sharing one buffer",
     content: [
       "The compute pipeline runs the flocking maths and updates every boid; the render pipeline draws them. The fundamentals covered each kind separately, and this project is where they sit side by side.",
       "Both bind groups point at the same boid buffer. The compute shader writes to it, the render shader only reads it. That shared buffer is the whole trick: the simulation and the drawing stay in sync without ever copying data back to the CPU.",
@@ -191,10 +191,10 @@ const renderBindGroup = device.createBindGroup({
   },
 
   {
-    id: 'frame-code',
-    type: 'code',
-    filename: 'boids.js',
-    language: 'JavaScript',
+    id: "frame-code",
+    type: "code",
+    filename: "boids.js",
+    language: "JavaScript",
     code: `function frame(t) {
   const dt = lastT === null ? 1/60 : (t - lastT) / 1000;
   lastT = t;
@@ -238,9 +238,9 @@ const renderBindGroup = device.createBindGroup({
 requestAnimationFrame(frame);`,
   },
   {
-    id: 'frame-desc',
-    type: 'description',
-    title: 'What happens each frame',
+    id: "frame-desc",
+    type: "description",
+    title: "What happens each frame",
     content: [
       "Each frame: work out the time delta, push the latest params, run the compute pass, then the render pass. Both passes share one command encoder and submit together, so the boids are drawn using the positions computed that same frame.",
       "The Math.min clamp on stepDt is there so a long pause (like switching tabs) can't feed a huge dt into the simulation and fling everything off screen.",
@@ -248,10 +248,10 @@ requestAnimationFrame(frame);`,
   },
 
   {
-    id: 'compute-code',
-    type: 'code',
-    filename: 'boids_compute.wgsl',
-    language: 'WGSL',
+    id: "compute-code",
+    type: "code",
+    filename: "boids_compute.wgsl",
+    language: "WGSL",
     code: `// 64 threads per workgroup
 @compute @workgroup_size(64)
 fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
@@ -295,26 +295,26 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
 
         // if a neighbour is within sight range we move towards their location
         if (d2 < cohD2) { // if neighbour is within cohesion distance
-        cohesion += other.pos; // accumalte their position vector
+        cohesion += other.pos; // accumulate their position vector
         cohCount += 1.0; // count this neighbour
         }
     }`,
   },
   {
-    id: 'compute-desc',
-    type: 'description',
-    title: 'The three rules',
+    id: "compute-desc",
+    type: "description",
+    title: "The three rules",
     content: [
       "This is the heart of it. One compute thread per boid, dispatched in workgroups of 64. Each boid loops over all the others and accumulates three pulls: separation (don't crowd), alignment (match nearby headings), cohesion (drift toward the group's centre).",
-      "Two details worth pointing out: it compares squared distances to skip the square root, and separation uses inverseSqrt so closer neighbours push harder. The loop is O(n squared), which is fine at 700 but doesn't scale. A spatial grid for the neighbour search is the obvious next step.",
+      "Two details worth pointing out: it compares squared distances to skip the square root, and separation uses inverseSqrt so closer neighbours push harder. The loop is O(n squared), which is fine at 700 but doesn't scale. A spatial grid could be a way to get more boids on the screen but I am yet to test it out.",
     ],
   },
 
   {
-    id: 'steer-code',
-    type: 'code',
-    filename: 'boids_compute.wgsl',
-    language: 'WGSL',
+    id: "steer-code",
+    type: "code",
+    filename: "boids_compute.wgsl",
+    language: "WGSL",
     code: `    var steer = vec2f(0.0);  // initialise steering force
 
     if (sepCount > 0.0) {
@@ -361,23 +361,23 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
 }`,
   },
   {
-    id: 'steer-desc',
-    type: 'description',
-    title: 'From three pulls to one steering force',
+    id: "steer-desc",
+    type: "description",
+    title: "From three pulls to one steering force",
     content: [
       "Each rule turns into a desired velocity, then steers by the difference between desired and current. That desired-minus-current is what makes turning gradual rather than instant. clampMagnitude caps how hard a boid can steer per frame to keep the motion smooth, and the bounds block is a light nudge back from the edges.",
-      "The last lines are plain Euler integration: add steering to velocity, cap the speed, move the position, wrap around the edges, write back to the buffer.",
+      "The last lines are plain Euler integration to add steering to velocity, cap the speed, move the position, wrap around the edges, write back to the buffer.",
     ],
   },
 
   {
-    id: 'render-code',
-    type: 'code',
-    filename: 'boids_render.wgsl',
-    language: 'WGSL',
+    id: "render-code",
+    type: "code",
+    filename: "boids_render.wgsl",
+    language: "WGSL",
     code: `@vertex
 fn vs_main( // vertex shader function name and entry point
-    @builtin(vertex_index) vid: u32, // for pass.draw(3, BOID_COUNT) endcoder command
+    @builtin(vertex_index) vid: u32, // for pass.draw(3, BOID_COUNT) encoder command
     @builtin(instance_index) iid: u32
 ) -> VSOut {
     let b = boids[iid]; // get the boids position and velocity
@@ -419,9 +419,9 @@ fn vs_main( // vertex shader function name and entry point
 }`,
   },
   {
-    id: 'render-desc',
-    type: 'description',
-    title: 'Drawing 700 triangles in one call',
+    id: "render-desc",
+    type: "description",
+    title: "Drawing 700 triangles in one call",
     content: [
       "This is instanced rendering from the fundamentals. draw(3, 700) draws one triangle 700 times, and the shader uses the instance index to pick which boid it's drawing.",
       "Per vertex, the shader builds a small arrow-shaped triangle in local space, rotates it to face the boid's velocity, scales it, corrects for the screen's aspect ratio, then places it at the boid's position. Colour comes from speed through a cosine palette.",
@@ -429,9 +429,9 @@ fn vs_main( // vertex shader function name and entry point
   },
 
   {
-    id: 'takeaways',
-    type: 'description',
-    title: 'What I took from it',
+    id: "takeaways",
+    type: "description",
+    title: "What I took from it",
     content: [
       "Reading a working reference closely pushed me into patterns I wouldn't have reached for alone, the clearest being one buffer shared between a compute and a render pipeline.",
       "Still on the list: explicit pipeline layouts, a spatial grid for the neighbour search, and writing something like this from scratch rather than from a reference. That last one is the real test.",
@@ -455,8 +455,10 @@ function SimulationCanvas() {
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
 
-    import('./boids.js')
-      .then(({ main }) => { if (!cancelled) main(canvas); })
+    import("./boids.js")
+      .then(({ main }) => {
+        if (!cancelled) main(canvas);
+      })
       .catch(console.error);
 
     return () => {
@@ -468,11 +470,11 @@ function SimulationCanvas() {
   return (
     <div
       className="relative w-full rounded-xl overflow-hidden border border-white/10"
-      style={{ aspectRatio: '16/9', background: '#06091f' }}
+      style={{ aspectRatio: "16/9", background: "#06091f" }}
     >
       <div
         className="absolute inset-0 pointer-events-none rounded-xl"
-        style={{ boxShadow: '0 0 80px rgba(51,194,204,0.07) inset' }}
+        style={{ boxShadow: "0 0 80px rgba(51,194,204,0.07) inset" }}
       />
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
@@ -480,45 +482,57 @@ function SimulationCanvas() {
 }
 
 function CodeBlock({ filename, language, code }) {
-  const lines = code.split('\n');
+  const lines = code.split("\n");
   return (
     <div className="rounded-xl overflow-hidden border border-white/10">
       <div
         className="flex items-center justify-between px-4 py-3 border-b border-white/10"
-        style={{ background: '#0d1117' }}
+        style={{ background: "#0d1117" }}
       >
         <div className="flex items-center gap-3">
           <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#ffbd2e' }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#28ca41' }} />
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ background: "#ff5f57" }}
+            />
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ background: "#ffbd2e" }}
+            />
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ background: "#28ca41" }}
+            />
           </div>
           <span className="text-xs text-neutral-400 font-mono">{filename}</span>
         </div>
         <span
           className="text-xs px-2 py-0.5 rounded font-mono"
           style={{
-            color: '#33c2cc',
-            background: 'rgba(51,194,204,0.1)',
-            border: '1px solid rgba(51,194,204,0.2)',
+            color: "#33c2cc",
+            background: "rgba(51,194,204,0.1)",
+            border: "1px solid rgba(51,194,204,0.2)",
           }}
         >
           {language}
         </span>
       </div>
-      <div className="overflow-x-auto" style={{ background: '#070b14' }}>
-        <table className="border-collapse text-sm font-mono" style={{ minWidth: '100%' }}>
+      <div className="overflow-x-auto" style={{ background: "#070b14" }}>
+        <table
+          className="border-collapse text-sm font-mono"
+          style={{ minWidth: "100%" }}
+        >
           <tbody>
             {lines.map((line, i) => (
               <tr key={i} className="hover:bg-white/[0.03] transition-colors">
                 <td
                   className="text-right pr-4 pl-4 py-px text-xs text-neutral-600"
-                  style={{ minWidth: '3rem', userSelect: 'none' }}
+                  style={{ minWidth: "3rem", userSelect: "none" }}
                 >
                   {i + 1}
                 </td>
                 <td className="pr-6 py-px text-neutral-300 whitespace-pre">
-                  {line || ' '}
+                  {line || " "}
                 </td>
               </tr>
             ))}
@@ -533,13 +547,13 @@ function Description({ title, content }) {
   return (
     <div
       className="space-y-3 pl-5 border-l-2"
-      style={{ borderColor: 'rgba(51,194,204,0.35)' }}
+      style={{ borderColor: "rgba(51,194,204,0.35)" }}
     >
-      {title && (
-        <h3 className="text-white font-semibold text-lg">{title}</h3>
-      )}
+      {title && <h3 className="text-white font-semibold text-lg">{title}</h3>}
       {content.map((para, i) => (
-        <p key={i} className="text-neutral-400 leading-relaxed">{para}</p>
+        <p key={i} className="text-neutral-400 leading-relaxed">
+          {para}
+        </p>
       ))}
     </div>
   );
@@ -550,29 +564,58 @@ export default function BoidSimulator() {
     <div className="min-h-screen bg-primary">
       <header
         className="sticky top-0 z-10 flex items-center gap-4 px-6 py-4 border-b border-white/10"
-        style={{ background: 'rgba(6,9,31,0.7)', backdropFilter: 'blur(8px)' }}
+        style={{ background: "rgba(6,9,31,0.7)", backdropFilter: "blur(8px)" }}
       >
         <Link
           href="/"
           className="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors text-sm font-medium"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-4">
-            <path fillRule="evenodd" d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z" clipRule="evenodd" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="size-4"
+          >
+            <path
+              fillRule="evenodd"
+              d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z"
+              clipRule="evenodd"
+            />
           </svg>
           Back
         </Link>
         <span className="text-white/20 select-none">|</span>
-        <h1 className="text-white font-semibold tracking-wide">Boid Simulator</h1>
+        <h1 className="text-white font-semibold tracking-wide">
+          Boid Simulator
+        </h1>
         <div className="flex gap-2 ml-auto">
-          <span className="text-xs font-medium px-2 py-1 rounded-full border" style={{ color: '#33c2cc', borderColor: 'rgba(51,194,204,0.3)', background: 'rgba(51,194,204,0.08)' }}>WebGPU</span>
-          <span className="text-xs font-medium px-2 py-1 rounded-full border" style={{ color: '#7a57db', borderColor: 'rgba(122,87,219,0.3)', background: 'rgba(122,87,219,0.08)' }}>TypeScript</span>
+          <span
+            className="text-xs font-medium px-2 py-1 rounded-full border"
+            style={{
+              color: "#33c2cc",
+              borderColor: "rgba(51,194,204,0.3)",
+              background: "rgba(51,194,204,0.08)",
+            }}
+          >
+            WebGPU
+          </span>
+          <span
+            className="text-xs font-medium px-2 py-1 rounded-full border"
+            style={{
+              color: "#7a57db",
+              borderColor: "rgba(122,87,219,0.3)",
+              background: "rgba(122,87,219,0.08)",
+            }}
+          >
+            TypeScript
+          </span>
         </div>
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-16 space-y-12">
         <SimulationCanvas />
         {sections.map((section) =>
-          section.type === 'code' ? (
+          section.type === "code" ? (
             <CodeBlock
               key={section.id}
               filename={section.filename}
@@ -585,7 +628,7 @@ export default function BoidSimulator() {
               title={section.title}
               content={section.content}
             />
-          )
+          ),
         )}
       </main>
     </div>
