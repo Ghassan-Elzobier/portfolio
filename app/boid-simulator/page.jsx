@@ -22,7 +22,6 @@ const sections = [
     content: [
       "This was my way into graphics programming. Instead of starting from a blank file, I worked from an existing boids (flocking) reference project in raw WebGPU and WGSL and spent my time pulling it apart.",
       "I'd just been through webgpufundamentals.org, so I had the building blocks: adapters and devices, uniform and storage buffers, bind groups, pipelines, compute shaders, instanced rendering. The reference used all of them at once, which is why I picked it. It was a chance to see how they fit together in something real.",
-      "My approach to this process was to type out the code line by line with my own comments, nudged things to see what broke, and worked out why. The comments in the code below are my own.",
     ],
   },
 
