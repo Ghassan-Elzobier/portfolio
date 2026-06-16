@@ -1,18 +1,17 @@
 export const myProjects = [
   {
     id: 1,
-    title: "Boid Simulator",
+    title: "WebGPU Fundamentals",
     description:
-      "A real-time flocking simulation built with WebGPU, using compute shaders to model the emergent behaviour of thousands of agents following Craig Reynolds' three classic rules: separation, alignment, and cohesion.",
+      "A self-directed journey through WebGPU from the ground up, going from drawing a single blue triangle all the way to compute shaders, GPU memory management and vertex buffers, following the WebGPU Fundamentals articles as a guide along the way.",
     subDescription: [
-      "Implemented Reynolds' three-rule flocking model (separation, alignment, cohesion) running fully in parallel on the GPU via WGSL compute shaders.",
-      "Used a ping-pong buffer pattern to update agent positions and velocities each frame without CPU-GPU round trips.",
-      "Rendered thousands of agents efficiently using instanced draw calls in the WebGPU render pipeline.",
-      "Built as a self-directed project to explore GPU compute and parallel simulation, motivated by an interest in graphics programming and the maths underlying real-time simulation.",
+      "Built the WebGPU render pipeline from scratch, writing WGSL vertex and fragment shaders and submitting command buffers to draw a triangle.",
+      "Explored compute shaders and how the GPU organises threads into workgroups, running parallel computations entirely on the GPU.",
+      "Progressed through uniform buffers, storage buffers and vertex buffers, learning the tradeoffs between each and how to pass data from JavaScript to the GPU.",
     ],
-    href: "/boid-simulator",
+    href: "/webgpu-fundamentals",
     logo: "",
-    image: "/assets/projects/boid-simulator.jpg",
+    image: "/assets/projects/webgpu-fundamentals.png",
     tags: [
       {
         id: 1,
@@ -28,186 +27,28 @@ export const myProjects = [
   },
   {
     id: 2,
-    title: "Authentication & Authorization System",
+    title: "Boid Simulator",
     description:
-      "A secure authentication and authorization system using Auth0 for seamless user management.",
+      "700 triangle shaped agents, each following three simple rules, and yet somehow a murmuration emerges. This project was my first attempt at putting everything I learned about WebGPU to use in a real simulation.",
     subDescription: [
-      "Integrated Auth0 for authentication, supporting OAuth, JWT, and multi-factor authentication.",
-      "Implemented role-based access control (RBAC) for fine-grained user permissions.",
-      "Developed a React-based frontend with Tailwind CSS for a sleek user experience.",
-      "Connected to a secure SQLite database for user data storage.",
+      "Each boid only knows about its neighbours, but separation, alignment and cohesion together produce something that looks alive.",
+      "The entire simulation runs on the GPU, a compute shader updates every boid in parallel each frame, which is what makes it fast enough to run 700 agents in real time.",
+      "Passing tuned weights for each flocking rule from JavaScript to the GPU every frame let me experiment with the behaviour without touching the shader code.",
+      "The render shader reads position and velocity from the same buffer the compute shader writes to, orienting each triangle in the direction the boid is moving.",
     ],
-    href: "",
+    href: "/boid-simulator",
     logo: "",
-    image: "/assets/projects/auth-system.jpg",
+    image: "/assets/projects/boids.png",
     tags: [
       {
         id: 1,
-        name: "Auth0",
-        path: "/assets/logos/auth0.svg",
+        name: "WebGPU",
+        path: "/assets/logos/webgpu.svg",
       },
       {
         id: 2,
-        name: "React",
-        path: "/assets/logos/react.svg",
-      },
-      {
-        id: 3,
-        name: "SQLite",
-        path: "/assets/logos/sqlite.svg",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "Blazor Web App",
-    description:
-      "A modern, interactive web application built with Blazor WebAssembly and .NET Core.",
-    subDescription: [
-      "Developed a fully interactive Single Page Application (SPA) using Blazor WebAssembly.",
-      "Implemented API interactions using .NET Core for a robust backend.",
-      "Designed responsive UI components with Tailwind CSS for an enhanced UX.",
-      "Integrated SQLite for efficient client-side database storage.",
-    ],
-    href: "",
-    logo: "",
-    image: "/assets/projects/blazor-app.jpg",
-    tags: [
-      {
-        id: 1,
-        name: "Blazor",
-        path: "/assets/logos/blazor.svg",
-      },
-      {
-        id: 2,
-        name: ".NET Core",
-        path: "/assets/logos/dotnetcore.svg",
-      },
-      {
-        id: 3,
-        name: "SQLite",
-        path: "/assets/logos/sqlite.svg",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "C++ Game Engine",
-    description:
-      "A lightweight C++ game engine designed for 2D and 3D game development.",
-    subDescription: [
-      "Built a powerful rendering engine using OpenGL and C++.",
-      "Developed a physics engine with collision detection and particle effects.",
-      "Implemented a scripting system for easy game customization.",
-      "Optimized performance with multi-threading and efficient memory management.",
-    ],
-    href: "",
-    logo: "",
-    image: "/assets/projects/game-engine.jpg",
-    tags: [
-      {
-        id: 1,
-        name: "C++",
-        path: "/assets/logos/cplusplus.svg",
-      },
-      {
-        id: 2,
-        name: "C#",
-        path: "/assets/logos/csharp.svg",
-      },
-      {
-        id: 3,
-        name: "Git",
-        path: "/assets/logos/git.svg",
-      },
-      {
-        id: 4,
-        name: "Microsoft",
-        path: "/assets/logos/microsoft.svg",
-      },
-    ],
-  },
-  {
-    id: 5,
-    title: "WordPress Custom Theme",
-    description:
-      "A fully customizable WordPress theme optimized for performance and SEO.",
-    subDescription: [
-      "Developed a responsive WordPress theme using HTML5, CSS3, and JavaScript.",
-      "Integrated Tailwind CSS for modern styling and UI enhancements.",
-      "Optimized SEO and page speed using Vite.js for fast builds.",
-      "Implemented custom widgets and plugin compatibility for extended functionality.",
-    ],
-    href: "",
-    logo: "",
-    image: "/assets/projects/wordpress-theme.jpg",
-    tags: [
-      {
-        id: 1,
-        name: "WordPress",
-        path: "/assets/logos/wordpress.svg",
-      },
-      {
-        id: 2,
-        name: "HTML5",
-        path: "/assets/logos/html5.svg",
-      },
-      {
-        id: 3,
-        name: "CSS3",
-        path: "/assets/logos/css3.svg",
-      },
-      {
-        id: 4,
-        name: "Vite.js",
-        path: "/assets/logos/vitejs.svg",
-      },
-    ],
-  },
-  {
-    id: 6,
-    title: "Online Learning Platform",
-    description:
-      "A web application that allows users to enroll in courses, watch video lectures, and take quizzes.",
-    subDescription: [
-      "Built using Blazor WebAssembly for a seamless SPA experience.",
-      "Implemented video streaming with Azure Media Services.",
-      "Added a quiz system with dynamic question generation and real-time grading.",
-      "Integrated Stripe API for secure payment processing.",
-    ],
-    href: "",
-    logo: "",
-    image: "/assets/projects/elearning.jpg",
-    tags: [
-      {
-        id: 1,
-        name: "Blazor",
-        path: "/assets/logos/blazor.svg",
-      },
-      {
-        id: 2,
-        name: "Azure",
-        path: "/assets/logos/azure.svg",
-      },
-      {
-        id: 3,
-        name: "Stripe",
-        path: "/assets/logos/stripe.svg",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
+        name: "TypeScript",
+        path: "/assets/logos/typescript.svg",
       },
     ],
   },
@@ -215,54 +56,23 @@ export const myProjects = [
 
 export const mySocials = [
   {
-    name: "WhatsApp",
-    href: "",
-    icon: "/assets/socials/whatsApp.svg",
-  },
-  {
     name: "Linkedin",
-    href: "https://www.linkedin.com/in/ali-sanati/",
+    href: "https://www.linkedin.com/in/gelzo/",
     icon: "/assets/socials/linkedIn.svg",
-  },
-  {
-    name: "Instagram",
-    href: "https://www.instagram.com/ali.sanatidev/reels/",
-    icon: "/assets/socials/instagram.svg",
   },
 ];
 
 export const experiences = [
   {
-    title: "Software Developer",
-    job: "Security & Defense Projects",
-    date: "2021-2023",
+    title: "Software Engineer",
+    job: "Neubond",
+    date: "2025 - Present",
     contents: [
-      "Enhanced application security and developed new features, adhering to standards set by the Passive Defense Organization and National Cyberspace Center.",
-      "Designed and implemented intuitive map interfaces using MapsUI, enhancing user experience and enabling seamless interactive map integration.",
-      "Developed applications for industrial automation, leveraging C++ and the Fatek API for PLC communication.",
-      "Enhanced responsiveness and usability of applications using Windows Forms and WPF frameworks.",
-      "Executed XML to SVG conversions using X-DOM, ensuring dynamic and efficient data visualization.",
-    ],
-  },
-  {
-    title: "Back-End Developer",
-    job: "Car Manufacture",
-    date: "2023-2024",
-    contents: [
-      "Engineered systems for large-scale data ingestion and analysis, ensuring efficient data processing and storage.",
-      "Developed back-end systems enabling vehicle-to-cloud communication for telemetry, diagnostics, and remote control:",
-      "✅ Implemented secure APIs, following ISO 26262 automotive safety standards.",
-      "✅ Ensured data privacy for customers and partners through industry-compliant protocols.",
-      "✅ Delivered remote features like over-the-air updates, real-time tracking, and remote start capabilities.",
-    ],
-  },
-  {
-    title: "Freelance Developer",
-    job: "Self-Employed",
-    date: "2025-Present",
-    contents: [
-      "Created a personal portfolio using Three.js, React, Vite, and WebAPI to showcase technical expertise.",
-      "Continuously enhancing technical skills and expanding expertise in modern web development and back-end technologies.",
+      "Building software at the intersection of hardware, clinical research, and mobile for a stroke rehabilitation wearable with the potential to meaningfully improve patient recovery.",
+      "Led the PDF progress report feature end-to-end, from research through to data aggregation, chart rendering, and PDF generation natively in Flutter.",
+      "Built the complete authentication flow across mobile and web, connecting universal links, password reset, recovery sessions, and deep link routing between a Next.js web layer and the iOS app.",
+      "Applied STRIDE threat modelling to design and implement a multi-layer security architecture across device, app, and cloud ahead of an independent penetration test.",
+      "Produced IEC 62304 and IEC 81001-5-1 cybersecurity documentation from primary sources to build a regulatory foundation for a connected medical device.",
     ],
   },
 ];

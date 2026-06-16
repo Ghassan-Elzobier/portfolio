@@ -20,13 +20,16 @@ const About = () => {
                     lg:scale-[2.5]"
                 />
                 <div className="z-10">
-                    <p className="headtext">
+                    <p className="headtext mb-4">
                         Hi, I'm Ghassan Elzobier
                     </p>
-                    <p className="subtext">
-                        Over the last 4 years, I developed my frontend and
+                    <p className="subtext mb-3">
+                        Over the last 2 years, I developed my frontend and
                         backend dev skills to deliver dynamic software and
-                        web applications
+                        web applications.
+                    </p>
+                    <p className="subtext">
+                        I've also become highly interested in graphics programming and have been working on WebGPU during my spare time. Please check out my projects below!
                     </p>
                 </div>
                 <div className="absolute inset-x-0 pointer-events-none
@@ -43,36 +46,32 @@ const About = () => {
                         CODE IS CRAFT
                     </p>
                     <Card 
-                    style={{rotate: "75deg", top:"30%", left: "20%"}}
-                    text="GRASP"
+                    style={{rotate: "40deg", top:"30%", left: "20%"}}
+                    text="RestAPI"
                     containerRef={grid2Container}/>
                     <Card 
                     style={{rotate: "-30deg", top:"60%", left: "45%"}}
-                    text="SOLID"
+                    text="IEC 62304"
                     containerRef={grid2Container}/>
                     <Card 
-                    style={{rotate: "90deg", top:"30%", left: "70%"}}
+                    style={{rotate: "5deg", top:"30%", left: "70%"}}
                     text="Design Patterns"
                     containerRef={grid2Container}/>
                     <Card 
                     style={{rotate: "-45deg", top:"55%", left: "0%"}}
-                    text="Design Principles"
-                    containerRef={grid2Container}/>
-                    <Card 
-                    style={{rotate: "20deg", top:"10%", left: "38%"}}
-                    text="SRP"
+                    text="Medical Device"
                     containerRef={grid2Container}/>
                     <Card
                     style={{rotate: "30deg", top:"70%", left: "70%"}}
-                    image="assets/logos/csharp-pink.png"
+                    image="assets/logos/webgpu.svg"
                     containerRef={grid2Container}/>
                     <Card
                     style={{rotate: "-45deg", top:"70%", left: "25%"}}
-                    image="assets/logos/dotnet-pink.png"
+                    image="assets/logos/react.svg"
                     containerRef={grid2Container}/>
                     <Card
-                    style={{rotate: "-45deg", top:"5%", left: "10%"}}
-                    image="assets/logos/blazor-pink.png"
+                    style={{rotate: "0deg", top:"5%", left: "10%"}}
+                    image="assets/logos/flutter.svg"
                     containerRef={grid2Container}/>
                 </div>
             </div>
@@ -96,7 +95,7 @@ const About = () => {
                 <div className="flex flex-col items-center justify-center
                 gap-4 size-full">
                     <p className="text-center headtext">
-                        Do you want to start a project together?
+                        Interested in my work? Send me an email
                     </p>
                     <CopyEmailButton />
                 </div>
@@ -106,9 +105,7 @@ const About = () => {
                 <div className="z-10 w-[50%]">
                     <p className="headtext">Teck Stack</p>
                     <p className="subtext">
-                        I specialize in a variety of languages, frameworks,
-                        and tools that allow me to build robust 
-                        and scalable applications
+                        A toolkit spanning web, mobile, and GPU programming. I'm increasingly focused on graphics programming and simulation, where the maths I studied at university shows up in practice.
                     </p>
                 </div>
                 <div className="absolute inset-y-0 md:inset-y-9 

@@ -62,7 +62,7 @@ const Contact = () => {
         refresh
       />
       {showAlert && <Alert type={alertType} text={alertMessage} />}
-      <div
+      {/* <div
         className="flex flex-col items-center justify-center max-w-md
          p-5 mx-auto border border-white/10 rounded-2xl bg-primary"
       >
@@ -131,7 +131,7 @@ const Contact = () => {
             {!isLoading ? "Send" : "Sending..."}
           </button>
         </form>
-      </div>
+      </div> */}
     </section>
   );
 };
